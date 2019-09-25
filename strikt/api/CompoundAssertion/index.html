@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en" class="has-spaced-navbar-fixed-top">
+<head>
+
+
+
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="generator" content="Orchid 0.17.4"/>
+<link rel="icon" href="https://strikt.io/favicon.ico">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<title>CompoundAssertion</title>
+
+
+<meta name="description" content="Strikt is an assertion library for Kotlin intended for use with a test runner such as JUnit or Spek.">
+
+
+
+
+
+<script>
+    window.site = {"orchidVersion":"0.17.4","baseUrl":"https://strikt.io","environment":"prod","version":"0.22.2"};
+</script>
+
+
+
+
+<!-- start:inject styles -->
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/bulma.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/prism.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/kotlindoc.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/orchidSearch.css"/>
+<!-- end:inject styles -->
+<script
+  defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+  integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+  crossorigin="anonymous"></script>
+
+<style>
+  /* Fix some conflicts with Prism and Bulma */
+  pre[class*="language-"] {
+    margin: inherit;
+  }
+
+  code[class*="language-"], pre[class*="language-"],
+  code, pre {
+    font-family: 'Fira Code', 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  :not(pre) > code[class*="language-"], pre[class*="language-"],
+  pre {
+    background: #363636;
+    color: #ccc;
+  }
+
+  pre[class*="language-"] .number {
+    align-items: inherit;
+    background-color: inherit;
+    border-radius: inherit;
+    display: inherit;
+    font-size: inherit;
+    height: inherit;
+    justify-content: inherit;
+    margin-right: inherit;
+    min-width: inherit;
+    padding: inherit;
+    text-align: inherit;
+    vertical-align: inherit;
+  }
+
+  pre.notification {
+    padding: 1em;
+  }
+</style>
+
+</head>
+<body>
+<nav class="navbar is-spaced is-fixed-top is-black" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://strikt.io">
+        <img src="https://strikt.io/assets/images/logo-white-28.png" alt="Strikt">
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+        <form id="search-input" data-orchid-search>
+  <div class="field has-addons">
+    <div class="control text-control">
+      <input class="input" type="text" name="query" placeholder="Search Strikt docs...">
+
+      <div id="search-progress" data-orchid-search-progress style="display: none;">
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
+    <div class="control">
+      <input type="submit" class="button is-info" value="Search">
+    </div>
+  </div>
+</form>
+<div id="search-results" data-orchid-search-results style="display: none;">
+  <div class="carat"></div>
+  <b>
+    Search Results
+    <i class="fa fa-times" aria-hidden="true" onclick="$('[data-orchid-search-results]').hide()"></i>
+  </b>
+  <ul></ul>
+</div>
+
+      </div>
+      <div class="navbar-end">
+
+      
+      
+        <a class="navbar-item" href="https://strikt.io">
+          <span class="icon has-text-info"><i class="fas fa-home"></i></span>
+          <span>Home</span>
+        </a>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-graduation-cap"></i></span>
+            <span>User Guide</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/getting-started">Getting Started</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/assertion-styles">Assertion Styles</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/collection-elements">Collection Element Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/expecting-exceptions">Expecting Exceptions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/flow-typing">Strongly Typed Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/traversing-subjects">Traversing Assertion Subjects</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/grouping-with-and">Grouping Assertions With and</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/custom-assertions">Custom Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/additional-modules">Additional Modules</a>
+          
+          </div>
+        </div>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-book"></i></span>
+            <span>API</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/api">Core API</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/assertions">Core Standard Library</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/gradle/testkit">Gradle Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/jackson">Jackson Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/time">Java Time Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/protobuf">Protobuf Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/spring">Spring Module</a>
+          
+          </div>
+        </div>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-info-circle"></i></span>
+            <span>Information</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/about">About Strikt</a>
+          
+            <a class="navbar-item" href="https://strikt.io/changelog">Changelog</a>
+          
+          </div>
+        </div>
+      
+      
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10-desktop">
+      
+        
+
+        <div class="content is-medium">
+        
+    <!-- start:inject components -->
+    
+        
+            
+                
+                    
+                        <div class="orchid-sourcedoc">
+
+
+<p id="summary">
+    <b>In package <a href="https://strikt.io/strikt/api">strikt.api</a></b>
+</p>
+<p>
+    <code style="padding: 0;">
+        class strikt.api.CompoundAssertion
+    </code>
+</p>
+<div class="class-description" id="description">
+<p>An assertion composed of multiple conditions whose overall result is
+determined by some aggregation of those conditions' results.</p>
+
+</div>
+
+
+
+
+
+<h2 id="fields">Fields</h2>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="field__abstract_anyFailed__Boolean">
+        <code>
+        abstract anyFailed: Boolean
+        </code>
+    </div>
+    <div class="panel-body"><p><code>true</code> if at least one composed assertion failed,
+otherwise <code>false</code>.</p>
+</div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="field__abstract_allFailed__Boolean">
+        <code>
+        abstract allFailed: Boolean
+        </code>
+    </div>
+    <div class="panel-body"><p><code>true</code> if all composed assertions failed, otherwise
+<code>false</code>.</p>
+</div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="field__abstract_anyPassed__Boolean">
+        <code>
+        abstract anyPassed: Boolean
+        </code>
+    </div>
+    <div class="panel-body"><p><code>true</code> if at least one composed assertion passed,
+otherwise <code>false</code>.</p>
+</div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="field__abstract_allPassed__Boolean">
+        <code>
+        abstract allPassed: Boolean
+        </code>
+    </div>
+    <div class="panel-body"><p><code>true</code> if all composed assertions passed, otherwise
+<code>false</code>.</p>
+</div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="field__abstract_passedCount__Int">
+        <code>
+        abstract passedCount: Int
+        </code>
+    </div>
+    <div class="panel-body"><p>the number of composed assertions whose status is
+strikt.api.Status.Passed.</p>
+</div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="field__abstract_failedCount__Int">
+        <code>
+        abstract failedCount: Int
+        </code>
+    </div>
+    <div class="panel-body"><p>the number of composed assertions whose status is
+strikt.api.Status.Failed.</p>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+                    
+                
+            
+        
+    
+    <!-- end:inject components -->
+
+
+        </div>
+      
+      
+
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <p class="has-text-left-tablet has-text-centered-mobile">
+        
+          <a href="https://github.com/robfletcher/strikt/" class="button is-dark">
+            <span class="icon"><i class="fab fa-lg fa-github"></i></span>
+            <span>GitHub</span>
+          </a>
+        
+          <a href="https://kotlinlang.slack.com/messages/CAR7KJ96J" class="button is-danger">
+            <span class="icon"><i class="fab fa-lg fa-slack-hash"></i></span>
+            <span>Slack</span>
+          </a>
+        
+          <a href="https://twitter.com/stri_kt" class="button is-info">
+            <span class="icon"><i class="fab fa-lg fa-twitter"></i></span>
+            <span>Twitter</span>
+          </a>
+        
+        </p>
+      </div>
+      <div class="column">
+        <p class="has-text-right-tablet has-text-centered-mobile">
+          <a href="https://bulma.io/">
+            <img
+              src="https://strikt.io/assets/images/made-with-bulma--semiblack.png"
+              alt="Bulma"
+              width="171"
+              height="32">
+          </a>
+          <a href="https://orchid.netlify.com/">
+            <img
+              src="https://strikt.io/assets/images/orchid.png"
+              alt="Orchid 0.17.4"
+              width="64"
+              height="32">
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- start:inject scripts -->
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/init.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/prism.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/lunr/lunr.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/orchidSearch.js"></script>
+<!-- end:inject scripts -->
+</body>
+</html>

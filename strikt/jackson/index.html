@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en" class="has-spaced-navbar-fixed-top">
+<head>
+
+
+
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="generator" content="Orchid 0.17.4"/>
+<link rel="icon" href="https://strikt.io/favicon.ico">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<title>strikt.jackson</title>
+
+
+<meta name="description" content="Strikt is an assertion library for Kotlin intended for use with a test runner such as JUnit or Spek.">
+
+
+
+
+
+<script>
+    window.site = {"orchidVersion":"0.17.4","baseUrl":"https://strikt.io","environment":"prod","version":"0.22.2"};
+</script>
+
+
+
+
+<!-- start:inject styles -->
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/bulma.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/prism.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/kotlindoc.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/orchidSearch.css"/>
+<!-- end:inject styles -->
+<script
+  defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+  integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+  crossorigin="anonymous"></script>
+
+<style>
+  /* Fix some conflicts with Prism and Bulma */
+  pre[class*="language-"] {
+    margin: inherit;
+  }
+
+  code[class*="language-"], pre[class*="language-"],
+  code, pre {
+    font-family: 'Fira Code', 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  :not(pre) > code[class*="language-"], pre[class*="language-"],
+  pre {
+    background: #363636;
+    color: #ccc;
+  }
+
+  pre[class*="language-"] .number {
+    align-items: inherit;
+    background-color: inherit;
+    border-radius: inherit;
+    display: inherit;
+    font-size: inherit;
+    height: inherit;
+    justify-content: inherit;
+    margin-right: inherit;
+    min-width: inherit;
+    padding: inherit;
+    text-align: inherit;
+    vertical-align: inherit;
+  }
+
+  pre.notification {
+    padding: 1em;
+  }
+</style>
+
+</head>
+<body>
+<nav class="navbar is-spaced is-fixed-top is-black" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://strikt.io">
+        <img src="https://strikt.io/assets/images/logo-white-28.png" alt="Strikt">
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+        <form id="search-input" data-orchid-search>
+  <div class="field has-addons">
+    <div class="control text-control">
+      <input class="input" type="text" name="query" placeholder="Search Strikt docs...">
+
+      <div id="search-progress" data-orchid-search-progress style="display: none;">
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
+    <div class="control">
+      <input type="submit" class="button is-info" value="Search">
+    </div>
+  </div>
+</form>
+<div id="search-results" data-orchid-search-results style="display: none;">
+  <div class="carat"></div>
+  <b>
+    Search Results
+    <i class="fa fa-times" aria-hidden="true" onclick="$('[data-orchid-search-results]').hide()"></i>
+  </b>
+  <ul></ul>
+</div>
+
+      </div>
+      <div class="navbar-end">
+
+      
+      
+        <a class="navbar-item" href="https://strikt.io">
+          <span class="icon has-text-info"><i class="fas fa-home"></i></span>
+          <span>Home</span>
+        </a>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-graduation-cap"></i></span>
+            <span>User Guide</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/getting-started">Getting Started</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/assertion-styles">Assertion Styles</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/collection-elements">Collection Element Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/expecting-exceptions">Expecting Exceptions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/flow-typing">Strongly Typed Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/traversing-subjects">Traversing Assertion Subjects</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/grouping-with-and">Grouping Assertions With and</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/custom-assertions">Custom Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/additional-modules">Additional Modules</a>
+          
+          </div>
+        </div>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-book"></i></span>
+            <span>API</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/api">Core API</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/assertions">Core Standard Library</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/gradle/testkit">Gradle Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/jackson">Jackson Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/time">Java Time Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/protobuf">Protobuf Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/spring">Spring Module</a>
+          
+          </div>
+        </div>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-info-circle"></i></span>
+            <span>Information</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/about">About Strikt</a>
+          
+            <a class="navbar-item" href="https://strikt.io/changelog">Changelog</a>
+          
+          </div>
+        </div>
+      
+      
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10-desktop">
+      
+        
+
+        <div class="content is-medium">
+        
+    <!-- start:inject components -->
+    
+        
+            
+                
+                    
+                        <div class="orchid-sourcedoc">
+
+
+<p><b>Package <code>strikt.jackson</code></b></p>
+
+<div class="package-description">
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 id="extensions">Methods</h2>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.has_fieldName__String___Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.has(fieldName: String): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node has a field named fieldName.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        fieldName: String
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.path_fieldName__String___Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.path(fieldName: String): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps the subject node of the assertion builder to the node accessed by
+fieldName.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        fieldName: String
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder whose subject is the named field. If the path is
+invalid the subject of the returned assertion builder will be a
+com.fasterxml.jackson.databind.node.MissingNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.isObject____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isObject(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node is a JSON object.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder over the same subject that is now known to be
+an ObjectNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.isArray____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isArray(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node is a JSON array.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder over the same subject that is now known to be
+an ArrayNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.isTextual____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isTextual(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node is a JSON text node.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder over the same subject that is now known to be
+a TextNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.isNumber____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNumber(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node is a JSON numeric node.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder over the same subject that is now known to be
+a NumericNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.isBoolean____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isBoolean(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node is a JSON boolean node.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder over the same subject that is now known to be
+a BooleanNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.isMissing____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isMissing(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node is a JSON missing node.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion builder over the same subject that is now known to be
+a MissingNode.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.textValue____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.textValue(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps the assertion to an assertion on the subject node's text value.<p>Be aware that if the node is not a text node this will map to an assertion on
+<code>null</code>.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.numberValue____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.numberValue(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps the assertion to an assertion on the subject node's number value.<p>Be aware that if the node is not a numeric node this will map to an assertion
+on <code>null</code>.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.booleanValue____Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.booleanValue(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps the assertion to an assertion on the subject node's boolean value.<p>Be aware that if the node is not a boolean node this will map to an assertion
+on <code>false</code>.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___JsonNode__Builder.hasNodeType_nodeType__JsonNodeType___Builder">
+        <code>
+        fun &lt;T : JsonNode&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.hasNodeType(nodeType: JsonNodeType): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject node's JsonNode.getNodeType method returns
+nodeType.<p>Convenient aliases for this assertion exist for common node types that also
+narrow the subject type of the resulting assertion builder.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        nodeType: JsonNodeType
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.hasSize_expected__Int___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.hasSize(expected: Int): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that a JSON array's size is equal to expected.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Int
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.size____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.size(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps an assertion on a JSON array to an assertion on its size.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+
+
+</div>
+                    
+                
+            
+        
+    
+    <!-- end:inject components -->
+
+
+        </div>
+      
+      
+
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <p class="has-text-left-tablet has-text-centered-mobile">
+        
+          <a href="https://github.com/robfletcher/strikt/" class="button is-dark">
+            <span class="icon"><i class="fab fa-lg fa-github"></i></span>
+            <span>GitHub</span>
+          </a>
+        
+          <a href="https://kotlinlang.slack.com/messages/CAR7KJ96J" class="button is-danger">
+            <span class="icon"><i class="fab fa-lg fa-slack-hash"></i></span>
+            <span>Slack</span>
+          </a>
+        
+          <a href="https://twitter.com/stri_kt" class="button is-info">
+            <span class="icon"><i class="fab fa-lg fa-twitter"></i></span>
+            <span>Twitter</span>
+          </a>
+        
+        </p>
+      </div>
+      <div class="column">
+        <p class="has-text-right-tablet has-text-centered-mobile">
+          <a href="https://bulma.io/">
+            <img
+              src="https://strikt.io/assets/images/made-with-bulma--semiblack.png"
+              alt="Bulma"
+              width="171"
+              height="32">
+          </a>
+          <a href="https://orchid.netlify.com/">
+            <img
+              src="https://strikt.io/assets/images/orchid.png"
+              alt="Orchid 0.17.4"
+              width="64"
+              height="32">
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- start:inject scripts -->
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/init.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/prism.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/lunr/lunr.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/orchidSearch.js"></script>
+<!-- end:inject scripts -->
+</body>
+</html>

@@ -1,0 +1,6300 @@
+<!doctype html>
+<html lang="en" class="has-spaced-navbar-fixed-top">
+<head>
+
+
+
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+<meta name="generator" content="Orchid 0.17.4"/>
+<link rel="icon" href="https://strikt.io/favicon.ico">
+
+
+<meta name="robots" content="index, follow">
+
+
+
+<title>strikt.assertions</title>
+
+
+<meta name="description" content="Strikt is an assertion library for Kotlin intended for use with a test runner such as JUnit or Spek.">
+
+
+
+
+
+<script>
+    window.site = {"orchidVersion":"0.17.4","baseUrl":"https://strikt.io","environment":"prod","version":"0.22.2"};
+</script>
+
+
+
+
+<!-- start:inject styles -->
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/bulma.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/prism.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/kotlindoc.css"/>
+<link rel="stylesheet" type="text/css" href="https://strikt.io/StriktTheme/d8d4e7a1/assets/css/orchidSearch.css"/>
+<!-- end:inject styles -->
+<script
+  defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+  integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+  crossorigin="anonymous"></script>
+
+<style>
+  /* Fix some conflicts with Prism and Bulma */
+  pre[class*="language-"] {
+    margin: inherit;
+  }
+
+  code[class*="language-"], pre[class*="language-"],
+  code, pre {
+    font-family: 'Fira Code', 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  :not(pre) > code[class*="language-"], pre[class*="language-"],
+  pre {
+    background: #363636;
+    color: #ccc;
+  }
+
+  pre[class*="language-"] .number {
+    align-items: inherit;
+    background-color: inherit;
+    border-radius: inherit;
+    display: inherit;
+    font-size: inherit;
+    height: inherit;
+    justify-content: inherit;
+    margin-right: inherit;
+    min-width: inherit;
+    padding: inherit;
+    text-align: inherit;
+    vertical-align: inherit;
+  }
+
+  pre.notification {
+    padding: 1em;
+  }
+</style>
+
+</head>
+<body>
+<nav class="navbar is-spaced is-fixed-top is-black" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://strikt.io">
+        <img src="https://strikt.io/assets/images/logo-white-28.png" alt="Strikt">
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-start">
+        <form id="search-input" data-orchid-search>
+  <div class="field has-addons">
+    <div class="control text-control">
+      <input class="input" type="text" name="query" placeholder="Search Strikt docs...">
+
+      <div id="search-progress" data-orchid-search-progress style="display: none;">
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
+    <div class="control">
+      <input type="submit" class="button is-info" value="Search">
+    </div>
+  </div>
+</form>
+<div id="search-results" data-orchid-search-results style="display: none;">
+  <div class="carat"></div>
+  <b>
+    Search Results
+    <i class="fa fa-times" aria-hidden="true" onclick="$('[data-orchid-search-results]').hide()"></i>
+  </b>
+  <ul></ul>
+</div>
+
+      </div>
+      <div class="navbar-end">
+
+      
+      
+        <a class="navbar-item" href="https://strikt.io">
+          <span class="icon has-text-info"><i class="fas fa-home"></i></span>
+          <span>Home</span>
+        </a>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-graduation-cap"></i></span>
+            <span>User Guide</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/getting-started">Getting Started</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/assertion-styles">Assertion Styles</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/collection-elements">Collection Element Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/expecting-exceptions">Expecting Exceptions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/flow-typing">Strongly Typed Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/traversing-subjects">Traversing Assertion Subjects</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/grouping-with-and">Grouping Assertions With and</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/custom-assertions">Custom Assertions</a>
+          
+            <a class="navbar-item" href="https://strikt.io/wiki/additional-modules">Additional Modules</a>
+          
+          </div>
+        </div>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-book"></i></span>
+            <span>API</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/api">Core API</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/assertions">Core Standard Library</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/gradle/testkit">Gradle Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/jackson">Jackson Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/time">Java Time Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/protobuf">Protobuf Module</a>
+          
+            <a class="navbar-item" href="https://strikt.io/strikt/spring">Spring Module</a>
+          
+          </div>
+        </div>
+      
+      
+      
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon has-text-info"><i class="fas fa-info-circle"></i></span>
+            <span>Information</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+          
+            <a class="navbar-item" href="https://strikt.io/about">About Strikt</a>
+          
+            <a class="navbar-item" href="https://strikt.io/changelog">Changelog</a>
+          
+          </div>
+        </div>
+      
+      
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-10-desktop">
+      
+        
+
+        <div class="content is-medium">
+        
+    <!-- start:inject components -->
+    
+        
+            
+                
+                    
+                        <div class="orchid-sourcedoc">
+
+
+<p><b>Package <code>strikt.assertions</code></b></p>
+
+<div class="package-description">
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h2 id="extensions">Methods</h2>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isNull____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNull(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is <code>null</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isNotNull____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNotNull(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not <code>null</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion for a non-<code>null</code> subject.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__inline_fun__T__Builder.isA____Builder">
+        <code>
+        inline fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isA(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is an instance of T.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>an assertion for T.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isEqualTo_expected__T____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEqualTo(expected: T?): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is equal to expected according to the standard
+Kotlin <code>==</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: T?
+        </code>
+        
+            <br><br>
+            <div><p>the expected value.</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEqualTo_expected__Double__tolerance__Double___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEqualTo(expected: Double, tolerance: Double): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is within tolerance of expected.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Double
+        </code>
+        
+    </li>
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        tolerance: Double
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEqualTo_expected__Float__tolerance__Double___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEqualTo(expected: Float, tolerance: Double): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is within tolerance of expected.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Float
+        </code>
+        
+    </li>
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        tolerance: Double
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isNotEqualTo_expected__T____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNotEqualTo(expected: T?): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not equal to expected according to the standard
+Kotlin <code>==</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: T?
+        </code>
+        
+            <br><br>
+            <div><p>the expected value.</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isSameInstanceAs_expected__Any____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isSameInstanceAs(expected: Any?): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is the same instance as expected according to the standard
+Kotlin <code>===</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Any?
+        </code>
+        
+            <br><br>
+            <div><p>the expected instance.</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isNotSameInstanceAs_expected__Any____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNotSameInstanceAs(expected: Any?): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not the same instance as expected according to the standard
+Kotlin <code>===</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Any?
+        </code>
+        
+            <br><br>
+            <div><p>the expected instance.</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Any__Builder.propertiesAreEqualTo_other__T___Builder">
+        <code>
+        fun &lt;T : Any&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.propertiesAreEqualTo(other: T): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all properties of the subject match those of other according
+to either contentEquals in the case of array properties or isEqualTo in
+other cases.<p>Properties are identified using Java beans conventions.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: T
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.contentEquals_other__Array___Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: Array): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+Array.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: Array
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__BooleanArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: BooleanArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+BooleanArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: BooleanArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__ByteArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: ByteArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+ByteArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: ByteArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__ShortArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: ShortArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+ShortArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: ShortArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__IntArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: IntArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+IntArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: IntArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__LongArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: LongArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+LongArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: LongArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__FloatArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: FloatArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+FloatArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: FloatArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__DoubleArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: DoubleArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+DoubleArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: DoubleArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.contentEquals_other__CharArray___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contentEquals(other: CharArray): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is equal to that of other according to
+CharArray.contentEquals.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: CharArray
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isEmpty____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEmpty____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject's content is empty.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.isEmpty____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is the empty string.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.toList____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.toList(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps an array to a list to make it possible to use the iterable matchers</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Boolean___Builder.isTrue____Builder">
+        <code>
+        fun &lt;T : Boolean?&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isTrue(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not null and is the boolean value <code>true</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Boolean___Builder.isFalse____Builder">
+        <code>
+        fun &lt;T : Boolean?&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isFalse(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not null and is the boolean value <code>false</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.hasLength_expected__Int___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.hasLength(expected: Int): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject has a CharSequence.length of exactly expected.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Int
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.isLowerCase____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isLowerCase(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is composed of all lower-case characters.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.isUpperCase____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isUpperCase(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is composed of all upper-case characters.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.startsWith_expected__Char___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.startsWith(expected: Char): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject starts with the expected character.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Char
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.startsWith_expected__CharSequence___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.startsWith(expected: CharSequence): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject starts with the expected string.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: CharSequence
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.startsWith_other__Path___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.startsWith(other: Path): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject starts with the provided path.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: Path
+        </code>
+        
+            <br><br>
+            <div><p>the given path</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.startsWith_other__String___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.startsWith(other: String): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject starts with the provided path.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: String
+        </code>
+        
+            <br><br>
+            <div><p>the given path string</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.endsWith_expected__Char___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.endsWith(expected: Char): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject ends with the expected character.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Char
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.endsWith_expected__CharSequence___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.endsWith(expected: CharSequence): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject ends with the expected string.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: CharSequence
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.endsWith_other__Path___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.endsWith(other: Path): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject end with the provided path.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: Path
+        </code>
+        
+            <br><br>
+            <div><p>the given path</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.endsWith_other__String___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.endsWith(other: String): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject end with the provided path string.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: String
+        </code>
+        
+            <br><br>
+            <div><p>the given path string</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.matches_expected__Regex___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.matches(expected: Regex): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a full match for the expected regular
+expression.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Regex
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.matchesIgnoringCase_expected__Regex___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.matchesIgnoringCase(expected: Regex): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a full match for the expected regular
+expression regardless of case.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Regex
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.contains_expected__Regex___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contains(expected: Regex): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject contains a match for the expected regular
+expression.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Regex
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.contains_expected__CharSequence___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contains(expected: CharSequence): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject contains the expected substring.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: CharSequence
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.contains_element__E___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contains(element: E): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject range contains the provided element.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        element: E
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.contains_elements__E___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contains(elements: E): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements are present in the subject.
+The elements may exist in any order any number of times and the subject may
+contain further elements that were not specified.
+If either the subject or elements are empty the assertion always fails.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: E
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.contains_elements__Collection___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.contains(elements: Collection): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements are present in the subject.
+The elements may exist in any order any number of times and the subject may
+contain further elements that were not specified.
+If either the subject or elements are empty the assertion always fails.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: Collection
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.containsIgnoringCase_expected__Regex___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsIgnoringCase(expected: Regex): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject contains a match for the expected regular
+expression regardless of case.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Regex
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.containsIgnoringCase_expected__CharSequence___Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsIgnoringCase(expected: CharSequence): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject contains the expected substring regardless of
+case.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: CharSequence
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence___Builder.isNullOrEmpty____Builder">
+        <code>
+        fun &lt;T : CharSequence?&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNullOrEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is <code>null</code> or the empty string.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence___Builder.isNullOrBlank____Builder">
+        <code>
+        fun &lt;T : CharSequence?&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNullOrBlank(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is <code>null</code>, empty, or contains only whitespace
+characters.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.isBlank____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isBlank(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is empty, or contains only whitespace characters.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.isNotEmpty____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNotEmpty(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not the empty string (contains at least one
+character).</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.isNotBlank____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isNotBlank(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is not blank (contains at least one non-whitespace
+character).</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___CharSequence__Builder.trim____Builder">
+        <code>
+        fun &lt;T : CharSequence&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.trim(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Trims the subject <code>CharSequence</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.trim____Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.trim(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Trims the subject string.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.hasSize_expected__Int___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.hasSize(expected: Int): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject has a Collection.size of exactly expected.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: Int
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.isSorted_comparator__Comparator___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isSorted(comparator: Comparator): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject collection is sorted according to the Comparator. Empty collections are considered sorted.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        comparator: Comparator
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___T__Builder.isGreaterThan_expected__T___Builder">
+        <code>
+        fun &lt;T : T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isGreaterThan(expected: T): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject compares greater than expected according to
+Kotlin's standard <code>&gt;</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: T
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___T__Builder.isLessThan_expected__T___Builder">
+        <code>
+        fun &lt;T : T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isLessThan(expected: T): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject compares less than expected according to Kotlin's
+standard <code>&lt;</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: T
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___T__Builder.isGreaterThanOrEqualTo_expected__T___Builder">
+        <code>
+        fun &lt;T : T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isGreaterThanOrEqualTo(expected: T): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject compares greater than or equal to expected
+according to Kotlin's standard <code>&gt;=</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: T
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___T__Builder.isLessThanOrEqualTo_expected__T___Builder">
+        <code>
+        fun &lt;T : T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isLessThanOrEqualTo(expected: T): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject compares less than or equal to expected according
+to Kotlin's standard <code>&lt;=</code> operator.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: T
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___T__Builder.isIn_expected__ClosedRange___Builder">
+        <code>
+        fun &lt;T : T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isIn(expected: ClosedRange): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is in the expected range.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: ClosedRange
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___File__Builder.toPath____Builder">
+        <code>
+        fun &lt;T : File&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.toPath(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on a path object representing this subject.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___File__Builder.lines_charset__Charset___Builder">
+        <code>
+        fun &lt;T : File&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.lines(charset: Charset): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on the lines of the subject decoded using the provided charset.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        charset: Charset
+        </code>
+        
+            <br><br>
+            <div><p>the charset used to decode the content</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___File__Builder.text_charset__Charset___Builder">
+        <code>
+        fun &lt;T : File&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.text(charset: Charset): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on the complete text of the subject decoded using the provided charset.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        charset: Charset
+        </code>
+        
+            <br><br>
+            <div><p>the charset used to decode the content</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__R__Builder.map_function___E___R___Builder">
+        <code>
+        fun &lt;T : E, E, R&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.map(function: (E)-&gt;R): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Applies Iterable.map with function to the subject and returns an
+assertion builder wrapping the result.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        function: (E)-&gt;R
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.first____Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.first(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over the first element in the subject
+iterable.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.first_predicate___E___Boolean___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.first(predicate: (E)-&gt;Boolean): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over the first element in the subject
+iterable that matches predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: (E)-&gt;Boolean
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.single____Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.single(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over the single element in the subject
+iterable.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.last____Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.last(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over the last element in the subject
+iterable.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__R__Builder.flatMap_transform___E___Iterable___Builder">
+        <code>
+        fun &lt;T : E, E, R&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.flatMap(transform: (E)-&gt;Iterable): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over a flattened list of the results of
+transform for each element in the subject iterable.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        transform: (E)-&gt;Iterable
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.filter_predicate___E___Boolean___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.filter(predicate: (E)-&gt;Boolean): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over a list of all elements of the subject that match <code>predicate</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: (E)-&gt;Boolean
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.filterNot_predicate___E___Boolean___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.filterNot(predicate: (E)-&gt;Boolean): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over a list of all elements of the subject that do not match <code>predicate</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: (E)-&gt;Boolean
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__inline_fun__R__Builder.filterIsInstance____Builder">
+        <code>
+        inline fun &lt;R&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.filterIsInstance(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over a list of all elements of the subject that are instances of <code>R</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.all_predicate__Builder.____Unit___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.all(predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements of the subject pass the assertions in predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.any_predicate__Builder.____Unit___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.any(predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that <i>at least one</i> element of the subject pass the assertions in
+predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.none_predicate__Builder.____Unit___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.none(predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that <i>no</i> elements of the subject pass the assertions in predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.atLeast_count__Int__predicate__Builder.____Unit___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.atLeast(count: Int, predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that at least count elements of the subject pass the assertions in
+predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        count: Int
+        </code>
+        
+    </li>
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.atMost_count__Int__predicate__Builder.____Unit___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.atMost(count: Int, predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that at most count elements of the subject pass the assertions in
+predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        count: Int
+        </code>
+        
+    </li>
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.exactly_count__Int__predicate__Builder.____Unit___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.exactly(count: Int, predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that exactly count elements of the subject pass the assertions in
+predicate.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        count: Int
+        </code>
+        
+    </li>
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        predicate: <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.()-&gt;Unit
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.doesNotContain_elements__E___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.doesNotContain(elements: E): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that none of elements are present in the subject.<p>If elements is empty the assertion always fails.
+If the subject is empty the assertion always passe.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: E
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.doesNotContain_elements__Collection___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.doesNotContain(elements: Collection): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that none of elements are present in the subject.<p>If elements is empty the assertion always fails.
+If the subject is empty the assertion always passe.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: Collection
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.containsExactly_elements__E___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsExactly(elements: E): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements <i>and no others</i> are present in the subject in the
+specified order.<p>If the subject has no guaranteed iteration order (for example a Set) this
+assertion is probably not appropriate and you should use
+containsExactlyInAnyOrder instead.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: E
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.containsExactly_elements__Collection___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsExactly(elements: Collection): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements <i>and no others</i> are present in the subject in the
+specified order.<p>If the subject has no guaranteed iteration order (for example a Set) this
+assertion is probably not appropriate and you should use
+containsExactlyInAnyOrder instead.</p></p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: Collection
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.containsExactlyInAnyOrder_elements__E___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsExactlyInAnyOrder(elements: E): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements <i>and no others</i> are present in the subject.
+Order is not evaluated, so an assertion on a List will pass so long as it
+contains all the same elements with the same cardinality as elements
+regardless of what order they appear in.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: E
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___E__E__Builder.containsExactlyInAnyOrder_elements__Collection___Builder">
+        <code>
+        fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsExactlyInAnyOrder(elements: Collection): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that all elements <i>and no others</i> are present in the subject.
+Order is not evaluated, so an assertion on a List will pass so long as it
+contains all the same elements with the same cardinality as elements
+regardless of what order they appear in.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        elements: Collection
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__operator_fun__T___E__E__Builder.get_i__Int___Builder">
+        <code>
+        operator fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.get(i: Int): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on the element at index i in the
+subject list.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        i: Int
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__operator_fun__T___E__E__Builder.get_range__IntRange___Builder">
+        <code>
+        operator fun &lt;T : E, E&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.get(range: IntRange): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on the elements at the sub-list
+represented by range in the subject list.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        range: IntRange
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__operator_fun__T___Map__K__V__Builder.get_key__K___Builder">
+        <code>
+        operator fun &lt;T : Map, K, V&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.get(key: K): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on the value indexed by key in the
+subject list.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        key: K
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>An assertion on the value indexed by key or <code>null</code> if no such entry
+exists in the subject map.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Map__K__V__Builder.getValue_key__K___Builder">
+        <code>
+        fun &lt;T : Map, K, V&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.getValue(key: K): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that key exists in the subject map and then maps this assertion to
+an assertion on the associated value.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        key: K
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div><p>An assertion on the value indexed by key.</p>
+</div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Map__K__V__Builder.containsKey_key__K___Builder">
+        <code>
+        fun &lt;T : Map, K, V&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsKey(key: K): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject map contains an entry indexed by key. Depending on
+the map implementation the value associated with key may be <code>null</code>. This
+assertion just tests for the existence of the key.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        key: K
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Map__K__V__Builder.containsKeys_keys__K___Builder">
+        <code>
+        fun &lt;T : Map, K, V&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.containsKeys(keys: K): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject map contains entries for all keys.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        keys: K
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Map__K__V__Builder.hasEntry_key__K__value__V___Builder">
+        <code>
+        fun &lt;T : Map, K, V&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.hasEntry(key: K, value: V): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject map contains an entry indexed by key with a value
+equal to value.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        key: K
+        </code>
+        
+    </li>
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        value: V
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isPresent____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isPresent(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that an <code>Optional</code> contains a value (is not empty) and returns an
+assertion builder whose subject is the value.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.isAbsent____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isAbsent(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that an <code>Optional</code> does not contain a value.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.toNullable____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.toNullable(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps an assertion on a Java <code>Optional</code> to a Kotlin nullable type.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.isAbsolute____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isAbsolute(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is an absolute path.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.resolve_other__Path___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.resolve(other: Path): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion of this subject resolved with the provided path.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: Path
+        </code>
+        
+            <br><br>
+            <div><p>the path to resolve against this subject's path</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.resolve_other__String___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.resolve(other: String): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion of this subject resolved with the provided path.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        other: String
+        </code>
+        
+            <br><br>
+            <div><p>the path string to resolve against this subject's path</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.toFile____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.toFile(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion on the file object representing this subject.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.exists_options__LinkOption___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.exists(options: LinkOption): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject exists, handling symbolic links according to the provided options</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        options: LinkOption
+        </code>
+        
+            <br><br>
+            <div><p>the options indicating how symbolic links are handled</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.isDirectory_options__LinkOption___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isDirectory(options: LinkOption): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a directory, handling symbolic links according to the provided options.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        options: LinkOption
+        </code>
+        
+            <br><br>
+            <div><p>the options indicating how symbolic links are handled</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.isExecutable____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isExecutable(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is executable link.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.isReadable____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isReadable(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is readable.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.isRegularFile_options__LinkOption___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isRegularFile(options: LinkOption): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a regular file, handling symbolic links according to the provided options.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        options: LinkOption
+        </code>
+        
+            <br><br>
+            <div><p>the options indicating how symbolic links are handled</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.isSymbolicLink____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isSymbolicLink(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a symbolic link.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.allBytes____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.allBytes(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over all bytes of this subject path .</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.allLines____Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.allLines(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over all lines of this subject path decoded using the <code>UTF-8</code> charset.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T___Path__Builder.allLines_charset__Charset___Builder">
+        <code>
+        fun &lt;T : Path&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.allLines(charset: Charset): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Maps this assertion to an assertion over all lines of this subject path decoded using the provided charset.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        charset: Charset
+        </code>
+        
+            <br><br>
+            <div><p>the charset to use in decoding</p>
+</div>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.succeeded____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.succeeded(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a successful result and maps this assertion to
+an assertion over the result value.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__T__Builder.failed____Builder">
+        <code>
+        fun &lt;T&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.failed(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a failed result and maps this assertion to an
+assertion over the exception that was thrown</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__inline_fun__E___Throwable__Builder.failedWith____Builder">
+        <code>
+        inline fun &lt;E : Throwable&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.failedWith(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is a isFailure result that threw an exception
+assignable to E and maps this assertion to an assertion over that
+exception.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun_Builder.isEqualToIgnoringCase_expected__String___Builder">
+        <code>
+        fun <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.isEqualToIgnoringCase(expected: String): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the subject is equal to the expected value regardless of case.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item clearfix">
+        <code class="pull-left">
+        expected: String
+        </code>
+        
+    </li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="method__fun__R___Any__Builder.doesNotThrow____Builder">
+        <code>
+        fun &lt;R : Any&gt; <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>.doesNotThrow(): <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div class="panel-body"><p>Asserts that the result of an action did not throw any exception and maps to
+an assertion on the result value. The assertion fails if the subject's
+<a href="#">Result.isFailure</a> returns <code>true</code>.</p>
+</div>
+
+    
+
+<div class="panel-footer">
+    <div><b>Receiver: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+    
+<div class="panel-body">
+    <b>Parameters: </b>
+</div>
+<ul class="list-group">
+
+    <li class="list-group-item">No parameters</li>
+
+</ul>
+
+    
+
+<div class="panel-footer">
+    <div><b>Returns: </b></div>
+    <div>
+        <code>
+        <a href="https://strikt.io/strikt/api/Assertion/Builder">Builder</a>
+        </code>
+    </div>
+    <div></div>
+</div>
+
+</div>
+
+
+
+
+</div>
+                    
+                
+            
+        
+    
+    <!-- end:inject components -->
+
+
+        </div>
+      
+      
+
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <p class="has-text-left-tablet has-text-centered-mobile">
+        
+          <a href="https://github.com/robfletcher/strikt/" class="button is-dark">
+            <span class="icon"><i class="fab fa-lg fa-github"></i></span>
+            <span>GitHub</span>
+          </a>
+        
+          <a href="https://kotlinlang.slack.com/messages/CAR7KJ96J" class="button is-danger">
+            <span class="icon"><i class="fab fa-lg fa-slack-hash"></i></span>
+            <span>Slack</span>
+          </a>
+        
+          <a href="https://twitter.com/stri_kt" class="button is-info">
+            <span class="icon"><i class="fab fa-lg fa-twitter"></i></span>
+            <span>Twitter</span>
+          </a>
+        
+        </p>
+      </div>
+      <div class="column">
+        <p class="has-text-right-tablet has-text-centered-mobile">
+          <a href="https://bulma.io/">
+            <img
+              src="https://strikt.io/assets/images/made-with-bulma--semiblack.png"
+              alt="Bulma"
+              width="171"
+              height="32">
+          </a>
+          <a href="https://orchid.netlify.com/">
+            <img
+              src="https://strikt.io/assets/images/orchid.png"
+              alt="Orchid 0.17.4"
+              width="64"
+              height="32">
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- start:inject scripts -->
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/init.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/prism.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/lunr/lunr.js"></script>
+<script src="https://strikt.io/StriktTheme/d8d4e7a1/assets/js/orchidSearch.js"></script>
+<!-- end:inject scripts -->
+</body>
+</html>
